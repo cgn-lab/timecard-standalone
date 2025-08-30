@@ -4,9 +4,10 @@ from fastapi import FastAPI
 
 
 # ディレクトリ移動
-ROOT_DIR = os.path.abspath(
-    os.path.join(os.path.abspath(__file__), '..', '..', '..'))
-os.chdir(ROOT_DIR)
+EXEC_DIR = os.path.abspath(
+    os.path.join(os.path.abspath(__file__), '..', '..'))
+ROOT_DIR = os.path.abspath(os.path.join(EXEC_DIR, '..'))
+os.chdir(EXEC_DIR)
 # 共通処理を環境変数に追加
 sys.path.append(os.path.join(ROOT_DIR, 'common'))
 
@@ -14,8 +15,11 @@ sys.path.append(os.path.join(ROOT_DIR, 'common'))
 async def lifespan(app: FastAPI):
     ''' FastAPI 前処理・後処理 '''
     # 前処理
+    from app.routers import load_routers
     from lib.config import Config
     Config.init()
+    for router in load_routers():
+        app.include_router(router)
 
     yield
 

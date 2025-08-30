@@ -21,3 +21,5 @@
 .python-version     text eol=lf encoding=utf-8 diff=utf-8
 *.code-workspace    text eol=lf encoding=utf-8 diff=utf-8
 *.lock              text eol=lf encoding=utf-8 diff=utf-8
+
+documents/site/**   -diff

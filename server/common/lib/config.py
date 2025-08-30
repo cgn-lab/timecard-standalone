@@ -16,5 +16,6 @@ class Config:
 
         this_file = os.path.abspath(__file__)
         cls.ROOT_DIR = path_of(this_file, '..', '..', '..')
+        cls.PUBLIC_DIR = path_of(cls.ROOT_DIR, '..', 'public')
 
         cls._is_ready = True
