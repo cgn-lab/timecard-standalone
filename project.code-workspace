@@ -1,0 +1,59 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      // server
+      "server/.venv": true,
+      "server/**/__pycache__": true,
+      "server/*.*": false,
+      // viewer
+      "viewer/node_modules": true,
+    },
+    // global
+    "editor.formatOnSave": true,
+    "editor.indentSize": "tabSize",
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    // python
+    "editor.defaultFormatter": "ms-python.autopep8",
+    "python.defaultInterpreterPath": "./server/.venv/bin/python",
+    "python.analysis.extraPaths": [
+      "./server/common",
+    ],
+    "autopep8.args": [
+      "--max-line-length=150"
+    ],
+    // javascript, typescript
+    "javascript.format.semicolons": "insert",
+    "typescript.format.semicolons": "insert",
+    "[javascript]": {
+      "editor.tabSize": 2,
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+    },
+    "[javascriptreact]": {
+      "editor.tabSize": 2,
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+    },
+    "[typescript]": {
+      "editor.tabSize": 2,
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+    },
+    "[typescriptreact]": {
+      "editor.tabSize": 2,
+      "editor.defaultFormatter": "vscode.typescript-language-features",
+    },
+    // json
+    "[json]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": "vscode.json-language-features"
+    }
+  }
+}
