@@ -1,4 +1,5 @@
 import os
+from logging.config import dictConfig
 from lib.utils import path_of, read_file
 
 
@@ -27,5 +28,11 @@ class Config:
         db_pass = db_config['pass']
         db_name = db_config['name']
         cls.DB_URL = f'postgresql+asyncpg://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
+
+        # ロガー設定
+        LOG_DIR = path_of(cls.ROOT_DIR, 'logs')
+        os.makedirs(LOG_DIR, exist_ok=True)
+        log_config = read_file(path_of(cls.ROOT_DIR, 'config', 'logger.yaml'))
+        dictConfig(log_config)
 
         cls._is_ready = True

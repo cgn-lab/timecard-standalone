@@ -1,9 +1,11 @@
 import os
+from logging import getLogger
 from fastapi import APIRouter
 from app.response import *
 from lib import Config
 from lib.utils import path_of, read_file
 
+log = getLogger('api')
 router = APIRouter()
 
 

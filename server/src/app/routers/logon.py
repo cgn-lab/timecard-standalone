@@ -1,8 +1,10 @@
 from typing import Optional
+from logging import getLogger
 from fastapi import APIRouter, Request, Depends
 from fastapi.security import HTTPBasic, HTTPBearer, HTTPBasicCredentials, HTTPAuthorizationCredentials
 from app.response import *
 
+log = getLogger('api')
 router = APIRouter(prefix='/api')
 basic_security = HTTPBasic(auto_error=False)
 bearer_security = HTTPBearer(auto_error=False)

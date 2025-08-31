@@ -1,5 +1,6 @@
 import os
 import sys
+from logging import Logger, getLogger
 from fastapi import FastAPI
 
 
@@ -7,14 +8,14 @@ from fastapi import FastAPI
 EXEC_DIR = os.path.abspath(
     os.path.join(os.path.abspath(__file__), '..', '..'))
 ROOT_DIR = os.path.abspath(os.path.join(EXEC_DIR, '..'))
-os.chdir(EXEC_DIR)
+os.chdir(ROOT_DIR)
 # 共通処理を環境変数に追加
+sys.path.append(EXEC_DIR)
 sys.path.append(os.path.join(ROOT_DIR, 'common'))
 
 
 async def lifespan(app: FastAPI):
     ''' FastAPI 前処理・後処理 '''
-    # 前処理
     from app.routers import load_routers
     from lib.config import Config
     from lib.database import DB
