@@ -1,6 +1,7 @@
 import os
 from typing import Tuple
 import orjson
+import yaml
 from lib.validator import IsType
 
 
@@ -39,6 +40,8 @@ def read_file(path: str, as_binary: bool = False, encoding='utf-8'):
             return orjson.loads(f.read())
     else:
         with open(path, mode='r', encoding=encoding) as f:
+            if path.endswith(('.yml', '.yaml')):
+                return yaml.load(f, yaml.SafeLoader)
             return f.read()
 
 

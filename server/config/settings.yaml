@@ -2,3 +2,9 @@ api:
   host: localhost
   port: 2200
 
+database:
+  host: localhost
+  port: 5432
+  user: tc_admin      # 開発用
+  pass: tc_pass       # 開発用
+  name: timecard_dev  # 開発用

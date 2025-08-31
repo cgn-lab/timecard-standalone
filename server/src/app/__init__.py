@@ -17,7 +17,15 @@ async def lifespan(app: FastAPI):
     # 前処理
     from app.routers import load_routers
     from lib.config import Config
+    from lib.database import DB
+
+    # 設定を初期化
     Config.init()
+
+    # データベース接続設定の初期化
+    await DB.init(Config.DB_URL)
+
+    # ルータを設定
     for router in load_routers():
         app.include_router(router)
 
