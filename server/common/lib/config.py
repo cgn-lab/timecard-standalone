@@ -1,16 +1,24 @@
 import os
 from logging.config import dictConfig
-from lib.utils import path_of, read_file
 
 
 class Config:
     _is_ready: bool = False
 
     ROOT_DIR: str
+    PUBLIC_DIR: str
+
+    DB_URL: str
+
+    PEPPER: str
+    JWT_SECRET: str
+    JWT_ALGORITHM: str
+    JWT_AVAILABLES_IN: int
 
     @classmethod
     def init(cls):
         ''' 初期化処理 '''
+        from lib.utils import path_of, read_file
 
         if cls._is_ready:
             return
@@ -28,6 +36,13 @@ class Config:
         db_pass = db_config['pass']
         db_name = db_config['name']
         cls.DB_URL = f'postgresql+asyncpg://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
+
+        auth_config = config['auth']
+        cls.PEPPER = auth_config['pepper']
+        jwt_config = auth_config['jwt']
+        cls.JWT_SECRET = jwt_config['secret']                   # JWT暗号化用キー
+        cls.JWT_ALGORITHM = jwt_config['algorithm']             # JWT暗号化方式
+        cls.JWT_AVAILABLES_IN = jwt_config['available_min']     # JWT有効期限
 
         # ロガー設定
         LOG_DIR = path_of(cls.ROOT_DIR, 'logs')

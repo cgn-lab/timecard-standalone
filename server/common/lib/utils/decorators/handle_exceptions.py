@@ -31,16 +31,19 @@ def handle_exceptions(
             except Exception as e:
                 log.error(traceback.format_exc())
                 if on_error:
+                    # on_error があれバ実行
                     if isinstance(on_error, Awaitable):
                         result = await on_error(e)
                     else:
                         result = on_error(e)
-            finally:
-                if session:
-                    await session.close()
+                # 戻り値があればそのレスポンスを返す
                 if result:
                     return result
                 else:
                     return Response(status_code=500)
+            finally:
+                if session:
+                    await session.close()
+
         return wrapper
     return decorator

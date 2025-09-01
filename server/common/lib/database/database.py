@@ -35,9 +35,8 @@ class DataBase:
         '''
         データベースのスキーマを同期します
         '''
-        from lib.database.orm import load_models
         # ORMモデルを読み込み
-        load_models()
+        from lib.database import orm
         # 不足しているテーブルを作成
         async with cls.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)

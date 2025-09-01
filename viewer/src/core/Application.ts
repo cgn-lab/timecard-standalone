@@ -5,11 +5,13 @@ import UserInterface from "~/components/UserInterface";
 import Xhr from "~/Utils/Xhr";
 
 export default class Application {
+  jwt?: string;
   components: Components;
 
   constructor() {
     this.components = {};
 
+    this.jwt = undefined;
     // TODO:
     // render() は _init() と別で走らせて 処理後に再描画のほうがUXよさそう
     this._init().then(() => {
@@ -19,15 +21,19 @@ export default class Application {
 
   private async _init() {
 
+    // 登録
+    let response = await Xhr.post(APIURL.register, { UserName: 'user1', Password: 'password' });
+
     // Basic認証
-    let response = await Xhr.get(APIURL.logon, Xhr.auth('user', 'pass'));
+    response = await Xhr.get(APIURL.logon, Xhr.auth('user1', 'password'));
     if (response.ok) {
-      const content = await response.json();
-      console.log(content);
+      const res = await response.json();
+      console.log(res);
+      this.jwt = res.JWT;
     }
 
     // Bearer認証
-    response = await Xhr.get(APIURL.logon, 'Bearer tokentokentoken');
+    response = await Xhr.get(APIURL.logon, `Bearer ${this.jwt}`);
     if (response.ok) {
       const content = await response.json();
       console.log(content);
